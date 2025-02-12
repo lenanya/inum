@@ -76,7 +76,6 @@ fn INum*! INum.from_string(&self, String str)
 fn void INum.free(&self) 
 {
 	self.digits.free();
-	free((void*)self);
 }
 
 // does not support negative numbers yet
