@@ -73,17 +73,23 @@ fn INum*! INum.from_string(&self, String str)
 	return self;
 }
 
+fn void INum.free(&self) 
+{
+	self.digits.free();
+	free((void*)self);
+}
+
 // does not support negative numbers yet
-fn INum add(INum a, INum b)  
+fn INum add(INum* a, INum* b)  
 {
 	INum result;
 	switch
 	{
-		case a.digits.len() < 1: return b;
-		case b.digits.len() < 1: return a; 
+		case a.digits.len() < 1: return *b;
+		case b.digits.len() < 1: return *a; 
 	}
-	INum larger = (a.digits.len() > b.digits.len()) ? a : b;
-	INum smaller = (a.digits.len() > b.digits.len()) ? b : a;
+	INum* larger = (a.digits.len() > b.digits.len()) ? a : b;
+	INum* smaller = (a.digits.len() > b.digits.len()) ? b : a;
 
 	for (ulong i = 0; i < larger.digits.len(); ++i) 
 	{
